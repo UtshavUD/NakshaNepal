@@ -37,17 +37,20 @@ export default function Login() {
   // LOGIN WITH GOOGLE
   // =========================
   const handleGoogleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'http://localhost:5173/dashboard',
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: 'http://localhost:5173/dashboard',
+      queryParams: {
+        prompt: 'select_account consent',
       },
-    })
+    },
+  })
 
-    if (error) {
-      alert(error.message)
-    }
+  if (error) {
+    alert(error.message)
   }
+}
 
   return (
     <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-slate-100 flex items-center justify-center px-6 py-10">

@@ -16,12 +16,13 @@ export default function Signup() {
   const handleGoogleSignup = async () => {
 
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'http://localhost:5173/dashboard',
-      },
-    })
-
+  provider: 'google',
+  options: {
+    queryParams: {
+      prompt: 'select_account',
+    },
+  },
+})
     if (error) {
       alert(error.message)
     }

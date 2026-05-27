@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {Login} from '../pages/Login'
-import {Signup} from './Signup'
+import Login from '../pages/Login'
+import Signup from './Signup'
 import Nepalmap from '../assets/NepalMap.png'
+
+console.log(import.meta.env.VITE_SUPABASE_URL)
+console.log(import.meta.env.VITE_SUPABASE_ANON_KEY)
+
 
 export default function LandingPage() {
 const [darkMode, setDarkMode] = useState(false)
+const [mobileMenu, setMobileMenu] = useState(false)
   return (
     <div
   className={`min-h-screen transition-all duration-500 ${
@@ -15,49 +20,148 @@ const [darkMode, setDarkMode] = useState(false)
   }`}
 >
       {/* Navbar */}
-      <nav
-  className={`w-full flex items-center justify-between px-8 md:px-16 py-6 backdrop-blur-sm transition-all duration-500 ${
-    darkMode
-      ? 'border-b border-slate-800'
-      : ''
-  }`}
->
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-red-600">
-            Naksha Nepal
-          </h1>
-          <p className="text-sm text-slate-500">
-            Explore Nepal Interactively
-          </p>
-        </div>
+ <nav
+      className={`w-full flex items-center justify-between px-6 md:px-16 py-5 backdrop-blur-md sticky top-0 z-50 transition-all duration-500 ${
+        darkMode
+          ? 'bg-slate-950/80 border-b border-slate-800 text-white'
+          : 'bg-white/80 border-b border-slate-200 text-slate-800'
+      }`}
+    >
+      {/* Logo */}
+      <div>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-red-600">
+          Naksha Nepal
+        </h1>
+        
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <a href="#features" className="hover:text-red-500 transition-all duration-300">
-            Features
-          </a>
-          <a href="#about" className="hover:text-red-500 transition-all duration-300">
-            About
-          </a>
-            <button
-    onClick={() => setDarkMode(!darkMode)}
-    className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 ${
-      darkMode
-        ? 'bg-slate-800 text-yellow-300 hover:bg-slate-700'
-        : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-    }`}
-  >
-    {darkMode ? '☀️ Light' : '🌙 Dark'}
-  </button>
-  <Link to="/login">
-          <button className="px-5 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:cursor-pointer hover:text-white transition-all duration-300">
+        <p
+          className={`text-sm ${
+            darkMode ? 'text-slate-400' : 'text-slate-500'
+          }`}
+        >
+          Explore Nepal Interactively
+        </p>
+      </div>
+
+      {/* Desktop Menu */}
+      <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+        
+        <a
+          href="#features"
+          className="hover:text-red-500 transition-all duration-300"
+        >
+          Features
+        </a>
+
+        <a
+          href="#about"
+          className="hover:text-red-500 transition-all duration-300"
+        >
+          About
+        </a>
+
+        {/* Dark Mode Toggle */}
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 ${
+            darkMode
+              ? 'bg-slate-800 text-yellow-300 hover:bg-slate-700'
+              : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+          }`}
+        >
+          {darkMode ? '☀️ Light' : '🌙 Dark'}
+        </button>
+
+        {/* Login */}
+        <Link to="/login">
+          <button className="px-5 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
             Login
-          </button></Link>
-          <Link to="/signup">
-            <button className="px-5 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:cursor-pointer hover:text-white transition-all duration-300">
+          </button>
+        </Link>
+
+        {/* Signup */}
+        <Link to="/signup">
+          <button className="px-5 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
             Signup
-          </button></Link>
+          </button>
+        </Link>
+      </div>
+
+      {/* Mobile Hamburger */}
+      <button
+        onClick={() => setMobileMenu(!mobileMenu)}
+        className={`md:hidden w-11 h-11 rounded-xl flex items-center hover:cursor-pointer justify-center text-xl transition-all duration-300 ${
+          darkMode
+            ? 'bg-slate-800 text-white'
+            : 'bg-slate-100 text-slate-800'
+        }`}
+      >
+        ☰
+      </button>
+
+      {/* Mobile Dropdown */}
+      {mobileMenu && (
+        <div
+          className={`absolute top-full left-0 w-full md:hidden shadow-xl border-b transition-all duration-300 ${
+            darkMode
+              ? 'bg-slate-950 border-slate-800'
+              : 'bg-white border-slate-200'
+          }`}
+        >
+          <div className="flex flex-col p-5 gap-3">
+            
+            <a
+              href="#features"
+              className={`px-4 py-3 rounded-xl transition-all duration-300 ${
+                darkMode
+                  ? 'hover:bg-slate-800'
+                  : 'hover:bg-slate-100'
+              }`}
+            >
+              Features
+            </a>
+
+            <a
+              href="#about"
+              className={`px-4 py-3 rounded-xl transition-all duration-300 ${
+                darkMode
+                  ? 'hover:bg-slate-800'
+                  : 'hover:bg-slate-100'
+              }`}
+            >
+              About
+            </a>
+
+            {/* Mobile Dark Toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className={`px-4 py-3 rounded-xl text-left hover:cursor-pointer transition-all duration-300 ${
+                darkMode
+                  ? 'bg-slate-800 text-yellow-300'
+                  : 'bg-slate-100 text-slate-700'
+              }`}
+            >
+              {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+            </button>
+
+            {/* Login */}
+            <Link to="/login">
+              <button className="w-full px-4 py-3 hover:cursor-pointer rounded-xl border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
+                Login
+              </button>
+            </Link>
+
+            {/* Signup */}
+            <Link to="/signup">
+              <button className="w-full px-4 py-3 hover:cursor-pointer rounded-xl border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
+                Signup
+              </button>
+            </Link>
+          </div>
         </div>
-      </nav>
+      )}
+    </nav>
+  
 
       {/* Hero Section */}
       <section className="px-8 md:px-16 pt-10 md:pt-20 pb-20">

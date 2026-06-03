@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Login from '../pages/Login'
 import Signup from './Signup'
 import Nepalmap from '../assets/NepalMap.png'
+import NNLogo from '../assets/NakshaNepal.png'
 
 console.log(import.meta.env.VITE_SUPABASE_URL)
 console.log(import.meta.env.VITE_SUPABASE_ANON_KEY)
@@ -21,7 +22,7 @@ const [mobileMenu, setMobileMenu] = useState(false)
 >
       {/* Navbar */}
  <nav
-      className={`w-full flex items-center justify-between px-6 md:px-16 py-5 backdrop-blur-md sticky top-0 z-50 transition-all duration-500 ${
+      className={`w-full flex items-center justify-between px-6 md:px-16 py-2 backdrop-blur-md sticky top-0 z-50 transition-all duration-500 ${
         darkMode
           ? 'bg-slate-950/80 border-b border-slate-800 text-white'
           : 'bg-white/80 border-b border-slate-200 text-slate-800'
@@ -29,14 +30,19 @@ const [mobileMenu, setMobileMenu] = useState(false)
     >
       {/* Logo */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold tracking-wide text-red-600">
-          Naksha Nepal
-        </h1>
+   <a href='#Hero'>     
+<h1 className="flex items-center gap-1">
+  <img src={NNLogo} alt="NN Logo" className="w-24 h-12" />
+  <span className="text-2xl md:text-3xl font-bold tracking-wide text-red-600">
+    NakshaNepal
+  </span>
+</h1>
+</a>
         
 
         <p
-          className={`text-sm ${
-            darkMode ? 'text-slate-400' : 'text-slate-500'
+          className={`text-sm text-start ${
+            darkMode ? 'text-slate-400' : 'text-blue-900'
           }`}
         >
           Explore Nepal Interactively
@@ -74,14 +80,14 @@ const [mobileMenu, setMobileMenu] = useState(false)
 
         {/* Login */}
         <Link to="/login">
-          <button className="px-5 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
+          <button className="px-5 py-2 rounded-full border hover:cursor-pointer border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
             Login
           </button>
         </Link>
 
         {/* Signup */}
         <Link to="/signup">
-          <button className="px-5 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
+          <button className="px-5 hover:cursor-pointer py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300">
             Signup
           </button>
         </Link>
@@ -164,7 +170,7 @@ const [mobileMenu, setMobileMenu] = useState(false)
   
 
       {/* Hero Section */}
-      <section className="px-8 md:px-16 pt-10 md:pt-20 pb-20">
+      <section id='Hero' className="px-8 md:px-16 pt-10 md:pt-20 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
           {/* Left Content */}
           <div>

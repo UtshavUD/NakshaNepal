@@ -15,6 +15,8 @@ export default function Dashboard() {
   user?.user_metadata?.picture ||
   null
 
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
   useEffect(() => {
     let isMounted = true
 
@@ -84,14 +86,14 @@ export default function Dashboard() {
 
         {/* Search */}
         <div className="mb-10">
-          <SearchBar />
+          <SearchBar setSelectedLocation={setSelectedLocation} />
         </div>
 
         {/* Layout */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
           
           <div className="xl:col-span-2">
-            <NepalMap />
+            <NepalMap selectedLocation={selectedLocation} />
           </div>
 
           <div className="space-y-8">

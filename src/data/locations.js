@@ -1,7 +1,7 @@
 export const locations = {
   kathmandu: {
-    x: "46%",
-    y: "42%",
+    x: "58%",
+    y: "60%",
     type: "city",
   },
 
@@ -17,7 +17,7 @@ export const locations = {
     type: "mountain",
   },
 
-  koshi_river: {
+  koshiriver: {
     x: "76%",
     y: "47%",
     type: "river",

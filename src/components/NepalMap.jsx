@@ -1,7 +1,7 @@
 import { Marker } from "./Marker";
 import NepalSVG from "../assets/NepalProvince.svg";
 
-export function NepalMap(selectedLocation) {
+export function NepalMap({selectedLocation}) {
   return (
     <div className="w-full bg-white rounded-4xl shadow-2xl border border-slate-100 p-6 md:p-10">
       <div className="flex items-center justify-between mb-8">

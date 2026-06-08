@@ -8,13 +8,14 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
-
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
     "@tailwindcss/vite": "^4.3.0",
+    "leaflet": "^1.9.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.15.0",
     "tailwindcss": "^4.3.0"
   },

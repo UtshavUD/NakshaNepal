@@ -1,51 +1,57 @@
-import { Marker } from "./Marker";
-import NepalSVG from "../assets/NepalProvince.svg";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Circle,
+  useMap,
+} from "react-leaflet";
+import { useEffect } from "react";
 
-export function NepalMap({selectedLocation}) {
-  return (
-    <div className="w-full bg-white rounded-4xl shadow-2xl border border-slate-100 p-6 md:p-10">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h2 className="text-3xl font-bold text-slate-800">
-            Nepal Interactive Map
-          </h2>
+function FlyToLocation({ selectedLocation }) {
+  const map = useMap();
 
-          <p className="text-slate-500 mt-2">
-            Search and explore locations visually.
-          </p>
-        </div>
+  useEffect(() => {
+    if (selectedLocation) {
+      map.flyTo(
+        [selectedLocation.latitude, selectedLocation.longitude],
+        selectedLocation.type === "province" ? 8 : 10,
+        { duration: 1.5 }
+      );
+    }
+  }, [selectedLocation]);
 
-        <div className="hidden md:flex items-center gap-3 px-5 py-3 rounded-2xl bg-red-50 border border-red-100 text-red-600 font-medium">
-          🗺️ Map View
-        </div>
-      </div>
-
-      <div className="relative w-full rounded-4xl border-2 border-slate-200 bg-slate-50 overflow-hidden flex justify-center p-6">
-
-        {/* Nepal SVG */}
-        <img
-          src={NepalSVG}
-          alt="Nepal Map"
-          className="w-full max-w-5xl object-contain"
-        />
-
-        {/* Example Marker */}
-{
-  selectedLocation && (
-    <div
-      className="absolute"
-      style={{
-        left: selectedLocation.x,
-        top: selectedLocation.y,
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      <Marker type={selectedLocation.type} />
-    </div>
-  )
+  return null;
 }
 
-      </div>
-    </div>
+export function NepalMap({ selectedLocation }) {
+  const position = [28.3949, 84.1240];
+
+  return (
+    <MapContainer center={position} zoom={7} style={{ height: "100vh", width: "100%" }}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+      <FlyToLocation selectedLocation={selectedLocation} />
+
+      {/* 📍 Point Marker */}
+      {selectedLocation && selectedLocation.areaType !== "circle" && (
+        <Marker position={[selectedLocation.latitude, selectedLocation.longitude]}>
+          <Popup>{selectedLocation.name}</Popup>
+        </Marker>
+      )}
+
+      {/* 🟦 Area Highlight */}
+      {selectedLocation && selectedLocation.areaType === "circle" && (
+        <Circle
+          center={[selectedLocation.latitude, selectedLocation.longitude]}
+          radius={selectedLocation.radius}
+          pathOptions={{
+            color: "red",
+            fillColor: "red",
+            fillOpacity: 0.2,
+          }}
+        />
+      )}
+    </MapContainer>
   );
 }

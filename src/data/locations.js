@@ -107,6 +107,7 @@ bagmati: {
 
   // 🔵 CENTRAL (KATHMANDU VALLEY)
   kathmandu: {
+    id: "kathmandu",
     name: "Kathmandu",
     latitude: 27.7172,
     longitude: 85.3240,

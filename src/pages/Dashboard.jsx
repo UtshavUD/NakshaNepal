@@ -141,7 +141,7 @@ export default function Dashboard() {
         </div>
 
         <div className="mt-10">
-          <InfoPanel />
+          <InfoPanel selectedLocation={selectedLocation} />
         </div>
       </div>
     </div>

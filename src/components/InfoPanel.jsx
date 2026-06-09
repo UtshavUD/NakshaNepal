@@ -1,55 +1,107 @@
-export function InfoPanel() {
-  return (
-    <div className="w-full bg-white rounded-4xl shadow-2xl border border-slate-100 p-8">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
-        <div>
-          <div className="inline-block px-4 py-2 rounded-full bg-red-100 text-red-600 text-sm font-semibold mb-4">
-            Location Information
-          </div>
+import { locationContent } from "../data/locationContent";
 
-          <h2 className="text-4xl font-bold text-slate-800 mb-3">
-            Mount Everest
-          </h2>
+export function InfoPanel({ selectedLocation }) {
+  if (!selectedLocation) {
+    return (
+      <div className="bg-white rounded-4xl shadow-xl border border-slate-100 p-8">
+        <h2 className="text-2xl font-bold mb-4">
+          Location Information
+        </h2>
 
-          <p className="text-slate-500 text-lg">
-            Solukhumbu District • Mountain
-          </p>
-        </div>
-
-        <div className="w-24 h-24 rounded-4xl bg-red-50 border border-red-100 flex items-center justify-center text-5xl">
-          🏔️
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-          <h4 className="text-sm text-slate-500 mb-2">Height</h4>
-          <p className="text-2xl font-bold text-slate-800">8,848m</p>
-        </div>
-
-        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-          <h4 className="text-sm text-slate-500 mb-2">Province</h4>
-          <p className="text-2xl font-bold text-slate-800">Koshi</p>
-        </div>
-
-        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-          <h4 className="text-sm text-slate-500 mb-2">Category</h4>
-          <p className="text-2xl font-bold text-slate-800">Mountain</p>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-2xl font-bold text-slate-800 mb-5">
-          About This Location
-        </h3>
-
-        <p className="text-slate-600 leading-relaxed text-lg">
-          Mount Everest is the highest mountain in the world above sea level.
-          Located in the Himalayas on the border of Nepal and Tibet, it is one
-          of the most famous geographical landmarks of Nepal and attracts
-          climbers and tourists from around the globe.
+        <p className="text-slate-500">
+          Search for a location to view information.
         </p>
       </div>
+    );
+  }
+
+  // safer key approach (recommended)
+  const key = selectedLocation.name
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/[()]/g, "");
+
+  const content = locationContent[key];
+
+  return (
+    <div className="bg-white rounded-4xl shadow-xl border border-slate-100 p-8">
+      <h2 className="text-3xl font-bold text-red-600 mb-4">
+        {selectedLocation.name}
+      </h2>
+
+      {content ? (
+        <>
+          {/* Quick Facts */}
+          <div className="space-y-3 mb-6">
+            <p>
+              <strong>Type:</strong> {selectedLocation.type}
+            </p>
+
+            {content.province && (
+              <p>
+                <strong>Province:</strong> {content.province}
+              </p>
+            )}
+
+            {content.population && (
+              <p>
+                <strong>Population:</strong> {content.population}
+              </p>
+            )}
+
+            {content.elevation && (
+              <p>
+                <strong>Elevation:</strong> {content.elevation}
+              </p>
+            )}
+
+            {content.height && (
+              <p>
+                <strong>Height:</strong> {content.height}
+              </p>
+            )}
+
+            {content.length && (
+              <p>
+                <strong>Length:</strong> {content.length}
+              </p>
+            )}
+          </div>
+
+          {/* Description */}
+          <div className="mb-6">
+            <h3 className="font-bold text-lg mb-2">
+              Description
+            </h3>
+            <p className="text-slate-700">
+              {content.description}
+            </p>
+          </div>
+
+          {/* Fact */}
+          <div className="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-xl">
+            <h3 className="font-bold mb-2">
+              Interesting Fact
+            </h3>
+            <p>{content.fact}</p>
+          </div>
+
+          {/* Essay */}
+          <div>
+            <h3 className="font-bold text-lg mb-2">
+              Essay for Students
+            </h3>
+
+            <p className="leading-8 text-slate-700 whitespace-pre-line">
+              {content.essay}
+            </p>
+          </div>
+        </>
+      ) : (
+        <p className="text-slate-500">
+          No educational content available yet.
+        </p>
+      )}
     </div>
-  )
+  );
 }

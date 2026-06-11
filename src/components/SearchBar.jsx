@@ -48,7 +48,7 @@ export function SearchBar({ setSelectedLocation }) {
   };
 
   return (
-    <div className="relative w-full z-[9999]">
+    <div className="relative w-full z-9999">
       <div className="w-full bg-white rounded-4xl shadow-lg border border-slate-100 p-5 flex flex-col md:flex-row items-center gap-4">
         <input
           type="text"
@@ -72,7 +72,7 @@ export function SearchBar({ setSelectedLocation }) {
 
       {/* Suggestions Dropdown */}
       {suggestions.length > 0 && (
-        <div className="absolute z-[99999] w-full bg-white mt-2 rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+        <div className="absolute z-99999 w-full bg-white mt-2 rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
           {suggestions.map((item, index) => (
             <div
               key={index}
